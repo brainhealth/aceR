@@ -51,11 +51,13 @@ proc_generic_module <- function(df,
     analy = list(rt_acc, acc, rt_prev_acc, rt_block_half)
   }
   
-  # Should only activate for ACE Explorer data, where this column is passed through
-  # Summarizes # practice rounds completed (already should be one unique value per participant)
+  # Should only activate for ACE Explorer data, where these columns are passed through.
+  # Summarizes # practice rounds completed and time played (already should be one unique value per participant)
   if (COL_PRACTICE_COUNT %in% names(df)) {
     prac = proc_by_condition(df, COL_PRACTICE_COUNT, include_overall = FALSE, FUN = ace_practice_count)
-    analy = c(analy, list(prac))
+    time = proc_by_condition(df, COL_TIME, include_overall = FALSE, FUN = ace_time)
+    
+    analy = c(analy, list(prac, time))
   }
   
   # TODO: Add version of proc_by_condition using a relabeled acc column where all lates are wrong

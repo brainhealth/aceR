@@ -234,7 +234,8 @@ module_backwardsspatialspan <- function(df) {
   analy = list(rt, span, rt_block_half)
   if (COL_PRACTICE_COUNT %in% names(df)) {
     prac = proc_by_condition(df, COL_PRACTICE_COUNT, include_overall = FALSE, FUN = ace_practice_count)
-    analy = c(analy, list(prac))
+    time = proc_by_condition(df, COL_TIME, include_overall = FALSE, FUN = ace_time)
+    analy = c(analy, list(prac, time))
   }
   merged = multi_merge(analy, by = COL_BID)
   merged = dplyr::filter(merged, object_count_span.overall >= 3)

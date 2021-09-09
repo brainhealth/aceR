@@ -121,6 +121,17 @@ ace_practice_count <- function(x, col) {
 }
 
 #' @importFrom dplyr across summarize
+#' @importFrom any_of
+#' @keywords internal 
+
+ace_time <- function(x, col) {
+  out = summarize(x, across(any_of(col), 
+                            list(COL_TIME = ace_median),
+                            .names = "{.col}"))
+  return (out)
+}
+
+#' @importFrom dplyr across summarize
 #' @importFrom tidyselect any_of
 #' @keywords internal 
 
